@@ -1,0 +1,30 @@
+.Input {
+  width: 100%;
+  padding: 5px;
+}
+
+.Label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.InputEl {
+  outline: none;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 100%;
+}
+
+.InputEl:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.Invalid {
+  border-color: crimson;
+}
