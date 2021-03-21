@@ -1,7 +1,8 @@
 // the sucker
 
-export { addIngredient, removeIngredient, initIngredients } from "./burgerAct";
+export { auth, authCheckState, logout, setAuthRedirectPath } from './authAct';
+export { addIngredient, initIngredients, removeIngredient } from './burgerAct';
+export { fetchOrders, purchase, purchaseInit } from './orderAct';
 
-export { purchase, purchaseInit, fetchOrders } from "./orderAct";
 
-export { auth, logout, setAuthRedirectPath } from './authAct'
+
