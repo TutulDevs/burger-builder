@@ -7,6 +7,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
+import { updateObj, checkValidity } from "../../../shared/utility";
 
 class ContactData extends Component {
   state = {
@@ -94,24 +95,6 @@ class ContactData extends Component {
     formIsValid: false,
   };
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    // true / false
-    return isValid;
-  };
-
   orderHandler = (e) => {
     e.preventDefault();
 
@@ -129,7 +112,7 @@ class ContactData extends Component {
       orderData: formData,
       userId: this.props.userId,
     };
-    console.log(order);
+    //console.log(order);
 
     //send the data to Firebase
     // sent by redux fucking redux
@@ -138,18 +121,20 @@ class ContactData extends Component {
 
   inputChangedHandler = (e, inputIdentifier) => {
     // deep clone for changing inpput val
-    const updatedOrderForm = { ...this.state.orderForm };
-    const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
+    const updatedFormElement = updateObj(this.state.orderForm[inputIdentifier], 
+      {
+        value: e.target.value,
+        valid: checkValidity(e.target.value, 
+          this.state.orderForm[inputIdentifier].validation),
+        touched: true,
+      }
+      );
 
-    // change the val
-    updatedFormElement.value = e.target.value;
-    updatedOrderForm[inputIdentifier] = updatedFormElement;
-    // check validity
-    updatedFormElement.valid = this.checkValidity(
-      updatedFormElement.value,
-      updatedFormElement.validation
-    );
-    updatedFormElement.touched = true;
+      
+    const updatedOrderForm = updateObj(this.state.orderForm, {
+      [inputIdentifier]: updatedFormElement,
+    })
+
 
     // check if everyting is valid
     let formIsValid = true;

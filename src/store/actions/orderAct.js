@@ -36,7 +36,7 @@ export const purchase = (orderData, token) => {
     axios
       .post("/orders.json?auth=" + token, orderData)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         dispatch(purchaseSuccess(res.data.name, orderData));
       })
       .catch((err) => dispatch(err));

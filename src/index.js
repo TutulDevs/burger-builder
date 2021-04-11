@@ -12,7 +12,8 @@ import burgerReducer from "./store/reducers/burgerRed";
 import orderReducer from "./store/reducers/orderRed";
 import authReducer from './store/reducers/authRed' ;
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// process.env for exposing redux dev tool
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerReducer,
